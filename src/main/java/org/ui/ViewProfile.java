@@ -32,6 +32,14 @@ public class ViewProfile {
         frame.add(panel);
         frame.setVisible(true);
 
+        JButton backButton = new JButton("Back");
+        frame.add(backButton);
+
+        backButton.addActionListener(e -> {
+            frame.dispose();
+            SwingUtilities.invokeLater(() -> new UserDashboard(user_id));
+        });
+
     }
 
     private static void addLabelValuePair(JPanel panel, String label, String value) {

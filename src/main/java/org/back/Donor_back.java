@@ -7,12 +7,12 @@ public class Donor_back {
 
     static String jdbcUrl = "jdbc:mysql://localhost:3306/blood";
     static String dbUsername = "root";
-    static String dbPassword = "tang";
+    static String dbPassword = "sqlsme";
     public static boolean isValidLogin(int donorID, String password) {
         try {
             Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
 
-            String selectQuery = "SELECT * FROM personal_info WHERE donor_id = ? AND pwd = ?";
+            String selectQuery = "SELECT * FROM users WHERE donor_id = ? AND pwd = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
             preparedStatement.setInt(1, donorID);
             preparedStatement.setString(2, password);
@@ -32,12 +32,12 @@ public class Donor_back {
         }
     }
 
-    public static int insertDataIntoDatabase(String pwd, String name, String mobileNumber, String bloodGroup) {
+    public static int registerNewUser(String pwd, String name, String mobileNumber, String bloodGroup) {
         try {
             Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
             Random rand = new Random();
             int donor_id = rand.nextInt(10000);
-            String insertQuery = "INSERT INTO personal_info (donor_id, pwd, phone, name, blood) VALUES (?, ?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO users (donor_id, pwd, phone, name, blood) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
             preparedStatement.setInt(1, donor_id);
             preparedStatement.setString(2, pwd);
@@ -63,7 +63,7 @@ public class Donor_back {
         try {
             Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
 
-            String query = "SELECT name, phone, blood, last_don FROM personal_info WHERE donor_id = ?";
+            String query = "SELECT name, phone, blood, last_don FROM users WHERE donor_id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, donorID);
             ResultSet resultSet = statement.executeQuery();
@@ -79,5 +79,4 @@ public class Donor_back {
         }
         return null;
     }
-
 }
