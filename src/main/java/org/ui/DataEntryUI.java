@@ -2,10 +2,7 @@ package org.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import org.back.Donor_back;
 
 public class DataEntryUI {
     public DataEntryUI() {
@@ -51,7 +48,7 @@ public class DataEntryUI {
             int yearOfStudy = Integer.parseInt(yearField.getText());
             String bloodGroup = bloodGroupField.getText();
 
-            if (insertDataIntoDatabase(name, mobileNumber, yearOfStudy, bloodGroup)) {
+            if (Donor_back.insertDataIntoDatabase(name, mobileNumber, yearOfStudy, bloodGroup)) {
                 JOptionPane.showMessageDialog(frame, "Data has been successfully submitted.");
             } else {
                 JOptionPane.showMessageDialog(frame, "Failed to submit data. Please try again.");
@@ -68,30 +65,5 @@ public class DataEntryUI {
         frame.setVisible(true);
     }
 
-    private static boolean insertDataIntoDatabase(String name, String mobileNumber, int yearOfStudy, String bloodGroup) {
-        try {
-            String jdbcUrl = "jdbc:mysql://localhost:3306/Blood";
-            String dbUsername = "root";
-            String dbPassword = "tang";
 
-            Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
-
-            String insertQuery = "INSERT INTO PersonInfo (name, mobile_number, year_of_study, blood_group) VALUES (?, ?, ?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, mobileNumber);
-            preparedStatement.setInt(3, yearOfStudy);
-            preparedStatement.setString(4, bloodGroup);
-
-            int rowsInserted = preparedStatement.executeUpdate();
-
-            preparedStatement.close();
-            connection.close();
-
-            return rowsInserted > 0;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }
 }
