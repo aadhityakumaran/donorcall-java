@@ -10,10 +10,10 @@ public class PatientRegistration {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(PatientRegistration::new);
+        SwingUtilities.invokeLater(PatientRegistration::createAndShowDataEntryGUI);
     }
 
-    public void createAndShowDataEntryGUI() {
+    public static void createAndShowDataEntryGUI() {
         JFrame frame = new JFrame("Patient Registration Form");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
@@ -28,7 +28,6 @@ public class PatientRegistration {
         JTextField ageField = new JTextField();
         frame.add(ageLabel);
         frame.add(ageField);
-
 
         JLabel infoLabel = new JLabel("Info:");
         JTextField infoField = new JTextField();
@@ -60,22 +59,23 @@ public class PatientRegistration {
 
             int user_id = Donor_back.registerNewPatient( name, age, blood, phone, info);
             if (user_id != -1) {
-                JOptionPane.showMessageDialog(frame, "Data has been successfully submitted. Your donor_id is " + user_id);
+                JOptionPane.showMessageDialog(frame, "Data has been successfully submitted.");
                 frame.dispose();
                 SwingUtilities.invokeLater(() -> new UserDashboard(user_id));
             } else {
                 JOptionPane.showMessageDialog(frame, "Failed to submit data. Please try again.");
                 // Clear the input fields
-                nameField.setText("");
-                phoneField.setText("");
-                infoField.setText("");
-                bloodGroupField.setText("");
             }
+            nameField.setText("");
+            ageField.setText("");
+            phoneField.setText("");
+            infoField.setText("");
+            bloodGroupField.setText("");
         });
 
         backButton.addActionListener(e -> {
             frame.dispose();
-            SwingUtilities.invokeLater(Donor::createAndShowLoginGUI);
+            SwingUtilities.invokeLater(Hospital::createAndShowHospitalUI);
         });
 
         frame.setLocationRelativeTo(null);

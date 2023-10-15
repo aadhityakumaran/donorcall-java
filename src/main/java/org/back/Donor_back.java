@@ -79,4 +79,32 @@ public class Donor_back {
         }
         return null;
     }
+
+    public static int registerNewPatient(String name, int age, String bloodGroup, String mobileNumber, String info) {
+        try {
+            Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
+            Random rand = new Random();
+            int patient_id = rand.nextInt(10000);
+            String insertQuery = "INSERT INTO hospital (patient_id, name, age, blood, phone, info) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+            preparedStatement.setInt(1, patient_id);
+            preparedStatement.setString(2, name);
+            preparedStatement.setInt(3, age);
+            preparedStatement.setString(4, bloodGroup);
+            preparedStatement.setString(5, mobileNumber);
+            preparedStatement.setString(6, info);
+
+            int rowsInserted = preparedStatement.executeUpdate();
+
+            if (rowsInserted == 0)
+                return -1;
+            preparedStatement.close();
+            connection.close();
+
+            return patient_id;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return -1;
+        }
+    }
 }
