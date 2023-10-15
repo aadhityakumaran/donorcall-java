@@ -2,18 +2,27 @@ package org.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class DataEntryUI {
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(DataEntryUI::createAndShowDataEntryGUI);
+    public DataEntryUI() {
+        createAndShowDataEntryGUI();
     }
 
-    public static void createAndShowDataEntryGUI() {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(DataEntryUI::new);
+    }
+
+    public void createAndShowDataEntryGUI() {
         JFrame frame = new JFrame("Data Entry Form");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
-        frame.setLayout(new GridLayout(5, 2)); // GridLayout with 5 rows and 2 columns
+        frame.setLayout(new GridLayout(5, 2));
 
         JLabel nameLabel = new JLabel("Name:");
         JTextField nameField = new JTextField();
@@ -38,23 +47,26 @@ public class DataEntryUI {
         JButton submitButton = new JButton("Submit");
         frame.add(submitButton);
 
-        submitButton.addActionListener(e -> {
-            String name = nameField.getText();
-            String mobileNumber = mobileField.getText();
-            int yearOfStudy = Integer.parseInt(yearField.getText());
-            String bloodGroup = bloodGroupField.getText();
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = nameField.getText();
+                String mobileNumber = mobileField.getText();
+                int yearOfStudy = Integer.parseInt(yearField.getText());
+                String bloodGroup = bloodGroupField.getText();
 
-            if (insertDataIntoDatabase(name, mobileNumber, yearOfStudy, bloodGroup)) {
-                JOptionPane.showMessageDialog(frame, "Data has been successfully submitted.");
-            } else {
-                JOptionPane.showMessageDialog(frame, "Failed to submit data. Please try again.");
+                if (insertDataIntoDatabase(name, mobileNumber, yearOfStudy, bloodGroup)) {
+                    JOptionPane.showMessageDialog(frame, "Data has been successfully submitted.");
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Failed to submit data. Please try again.");
+                }
+
+                // Clear the input fields
+                nameField.setText("");
+                mobileField.setText("");
+                yearField.setText("");
+                bloodGroupField.setText("");
             }
-
-            // Clear the input fields
-            nameField.setText("");
-            mobileField.setText("");
-            yearField.setText("");
-            bloodGroupField.setText("");
         });
 
         frame.setLocationRelativeTo(null);
