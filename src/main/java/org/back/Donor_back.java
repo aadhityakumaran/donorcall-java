@@ -1,21 +1,22 @@
 package org.back;
 
 import java.sql.*;
+import java.util.Random;
 
 public class Donor_back {
 
 
-    public static boolean isValidLogin(String username, String password) {
+    public static boolean isValidLogin(int donorID, String password) {
         try {
             String jdbcUrl = "jdbc:mysql://localhost:3306/blood";
             String dbUsername = "root";
-            String dbPassword = "tang";
+            String dbPassword = "sqlsme";
 
             Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
 
-            String selectQuery = "SELECT * FROM users WHERE username = ? AND password_hash = ?";
+            String selectQuery = "SELECT * FROM users WHERE donor_id = ? AND pwd = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
-            preparedStatement.setString(1, username);
+            preparedStatement.setInt(1, donorID);
             preparedStatement.setString(2, password);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -32,61 +33,67 @@ public class Donor_back {
             return false;
         }
     }
-    public static boolean registerNewUser(String username, String password) {
+//    public static boolean registerNewUser(String username, String password) {
+//        try {
+//            String jdbcUrl = "jdbc:mysql://localhost:3306/blood";
+//            String dbUsername = "root";
+//            String dbPassword = "tang";
+//
+//            Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
+//            connection.setAutoCommit(false); // Disable auto-commit
+//
+//            String insertQuery = "INSERT INTO users (username, password_hash) VALUES (?, ?)";
+//            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+//            preparedStatement.setString(1, username);
+//            preparedStatement.setString(2, password);
+//
+//            int rowsInserted = preparedStatement.executeUpdate();
+//
+//            // Commit the transaction
+//            connection.commit();
+//
+//            // Enable auto-commit and close resources
+//            connection.setAutoCommit(true);
+//            preparedStatement.close();
+//            connection.close();
+//
+//            return rowsInserted > 0;
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//            return false;
+//        }
+//    }
+
+    public static int insertDataIntoDatabase(String pwd, String name, String mobileNumber, String bloodGroup) {
         try {
             String jdbcUrl = "jdbc:mysql://localhost:3306/blood";
             String dbUsername = "root";
-            String dbPassword = "tang";
+            String dbPassword = "sqlsme";
 
             Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
-            connection.setAutoCommit(false); // Disable auto-commit
-
-            String insertQuery = "INSERT INTO users (username, password_hash) VALUES (?, ?)";
+            Random rand = new Random();
+            int donor_id = rand.nextInt(10000);
+            String insertQuery = "INSERT INTO users (donor_id, pwd, phone, name, blood) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+            preparedStatement.setInt(1, donor_id);
+            preparedStatement.setString(2, pwd);
+            preparedStatement.setString(3, mobileNumber);
+            preparedStatement.setString(4, name);
+            preparedStatement.setString(5, bloodGroup);
 
             int rowsInserted = preparedStatement.executeUpdate();
 
-            // Commit the transaction
-            connection.commit();
-
-            // Enable auto-commit and close resources
-            connection.setAutoCommit(true);
+            if (rowsInserted == 0)
+                return -1;
             preparedStatement.close();
             connection.close();
 
-            return rowsInserted > 0;
+            return donor_id;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
+            return -1;
         }
     }
 
-    public static boolean insertDataIntoDatabase(String name, String mobileNumber, int yearOfStudy, String bloodGroup) {
-        try {
-            String jdbcUrl = "jdbc:mysql://localhost:3306/Blood";
-            String dbUsername = "root";
-            String dbPassword = "tang";
 
-            Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
-
-            String insertQuery = "INSERT INTO PersonInfo (name, mobile_number, year_of_study, blood_group) VALUES (?, ?, ?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, mobileNumber);
-            preparedStatement.setInt(3, yearOfStudy);
-            preparedStatement.setString(4, bloodGroup);
-
-            int rowsInserted = preparedStatement.executeUpdate();
-
-            preparedStatement.close();
-            connection.close();
-
-            return rowsInserted > 0;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }
 }
