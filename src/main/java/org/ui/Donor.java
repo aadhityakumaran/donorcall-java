@@ -62,4 +62,6 @@ public class Donor {
 
         frame.setVisible(true);
     }
+
+    // Lol
 }
