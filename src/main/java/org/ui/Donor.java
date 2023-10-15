@@ -18,7 +18,7 @@ public class Donor {
         JPanel loginPanel = new JPanel();
         loginPanel.setLayout(new GridLayout(4, 2));
 
-        JLabel userLabel = new JLabel("Username:");
+        JLabel userLabel = new JLabel("Donor ID:");
         JTextField userField = new JTextField();
         loginPanel.add(userLabel);
         loginPanel.add(userField);
@@ -38,7 +38,7 @@ public class Donor {
         frame.setLocationRelativeTo(null);
 
         loginButton.addActionListener(e -> {
-            String username = userField.getText();
+            int username = Integer.parseInt(userField.getText());
             char[] passwordChars = passwordField.getPassword();
             String password = new String(passwordChars);
 
@@ -56,19 +56,21 @@ public class Donor {
         });
 
         newUserButton.addActionListener(e -> {
-            String username = userField.getText();
-            char[] passwordChars = passwordField.getPassword();
-            String password = new String(passwordChars);
-
-            if (Donor_back.registerNewUser(username, password)) {
-                JOptionPane.showMessageDialog(frame, "Registration successful! You can now log in.");
-            } else {
-                JOptionPane.showMessageDialog(frame, "Registration failed. Please choose a different username.");
-            }
-
-            // Clear the fields after registration
-            userField.setText("");
-            passwordField.setText("");
+//            String username = userField.getText();
+//            char[] passwordChars = passwordField.getPassword();
+//            String password = new String(passwordChars);
+//
+//            if (Donor_back.registerNewUser(username, password)) {
+//                JOptionPane.showMessageDialog(frame, "Registration successful! You can now log in.");
+//            } else {
+//                JOptionPane.showMessageDialog(frame, "Registration failed. Please choose a different username.");
+//            }
+//
+//            // Clear the fields after registration
+//            userField.setText("");
+//            passwordField.setText("");
+            frame.dispose();
+            SwingUtilities.invokeLater(DataEntryUI::new);
         });
 
         frame.setVisible(true);

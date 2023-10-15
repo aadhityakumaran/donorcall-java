@@ -14,7 +14,7 @@ public class DataEntryUI {
     }
 
     public void createAndShowDataEntryGUI() {
-        JFrame frame = new JFrame("Data Entry Form");
+        JFrame frame = new JFrame("Registration Form");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
         frame.setLayout(new GridLayout(5, 2));
@@ -24,15 +24,15 @@ public class DataEntryUI {
         frame.add(nameLabel);
         frame.add(nameField);
 
-        JLabel mobileLabel = new JLabel("Mobile Number:");
-        JTextField mobileField = new JTextField();
-        frame.add(mobileLabel);
-        frame.add(mobileField);
+        JLabel pwdLabel = new JLabel("Password:");
+        JTextField pwdField = new JTextField();
+        frame.add(pwdLabel);
+        frame.add(pwdField);
 
-        JLabel yearLabel = new JLabel("Year of Study:");
-        JTextField yearField = new JTextField();
-        frame.add(yearLabel);
-        frame.add(yearField);
+        JLabel phoneLabel = new JLabel("Phone:");
+        JTextField phoneField = new JTextField();
+        frame.add(phoneLabel);
+        frame.add(phoneField);
 
         JLabel bloodGroupLabel = new JLabel("Blood Group:");
         JTextField bloodGroupField = new JTextField();
@@ -43,22 +43,24 @@ public class DataEntryUI {
         frame.add(submitButton);
 
         submitButton.addActionListener(e -> {
+            String pwd = pwdField.getText();
             String name = nameField.getText();
-            String mobileNumber = mobileField.getText();
-            int yearOfStudy = Integer.parseInt(yearField.getText());
+            String phone = phoneField.getText();
             String bloodGroup = bloodGroupField.getText();
 
-            if (Donor_back.insertDataIntoDatabase(name, mobileNumber, yearOfStudy, bloodGroup)) {
-                JOptionPane.showMessageDialog(frame, "Data has been successfully submitted.");
+            int user_id = Donor_back.insertDataIntoDatabase(pwd, name, phone, bloodGroup);
+            if (user_id != -1) {
+                JOptionPane.showMessageDialog(frame, "Data has been successfully submitted. Your donor_id is " + user_id);
+                frame.dispose();
+                SwingUtilities.invokeLater(UserDashboard::new);
             } else {
                 JOptionPane.showMessageDialog(frame, "Failed to submit data. Please try again.");
+                // Clear the input fields
+                nameField.setText("");
+                phoneField.setText("");
+                pwdField.setText("");
+                bloodGroupField.setText("");
             }
-
-            // Clear the input fields
-            nameField.setText("");
-            mobileField.setText("");
-            yearField.setText("");
-            bloodGroupField.setText("");
         });
 
         frame.setLocationRelativeTo(null);
