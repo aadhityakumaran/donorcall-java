@@ -9,7 +9,7 @@ public class Donor {
         SwingUtilities.invokeLater(Donor::createAndShowLoginGUI);
     }
 
-    private static void createAndShowLoginGUI() {
+    public static void createAndShowLoginGUI() {
         JFrame frame = new JFrame("Login Page");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300, 200);
@@ -47,7 +47,7 @@ public class Donor {
                 frame.dispose();
                 // Open the user dashboard
                 // Create and show the user dashboard
-                SwingUtilities.invokeLater(UserDashboard::new);
+                SwingUtilities.invokeLater(() -> new UserDashboard(username));
             }  else {
                 JOptionPane.showMessageDialog(frame, "Login failed. Please check your credentials.");
             }

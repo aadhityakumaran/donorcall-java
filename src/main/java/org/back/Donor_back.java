@@ -5,7 +5,6 @@ import java.util.Random;
 
 public class Donor_back {
 
-
     public static boolean isValidLogin(int donorID, String password) {
         try {
             String jdbcUrl = "jdbc:mysql://localhost:3306/blood";

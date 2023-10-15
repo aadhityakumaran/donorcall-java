@@ -42,6 +42,9 @@ public class DataEntryUI {
         JButton submitButton = new JButton("Submit");
         frame.add(submitButton);
 
+        JButton backButton = new JButton("Back");
+        frame.add(backButton);
+
         submitButton.addActionListener(e -> {
             String pwd = pwdField.getText();
             String name = nameField.getText();
@@ -52,7 +55,7 @@ public class DataEntryUI {
             if (user_id != -1) {
                 JOptionPane.showMessageDialog(frame, "Data has been successfully submitted. Your donor_id is " + user_id);
                 frame.dispose();
-                SwingUtilities.invokeLater(UserDashboard::new);
+                SwingUtilities.invokeLater(() -> new UserDashboard(user_id));
             } else {
                 JOptionPane.showMessageDialog(frame, "Failed to submit data. Please try again.");
                 // Clear the input fields
@@ -63,9 +66,12 @@ public class DataEntryUI {
             }
         });
 
+        backButton.addActionListener(e -> {
+            frame.dispose();
+            SwingUtilities.invokeLater(Donor::createAndShowLoginGUI);
+        });
+
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-
-
 }
