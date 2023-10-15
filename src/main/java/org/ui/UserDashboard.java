@@ -17,29 +17,29 @@ public class UserDashboard {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
 
-        JButton uploadDataButton = new JButton("Upload Your Data in DB");
-        buttonPanel.add(uploadDataButton);
+        JButton viewProfileButton = new JButton("View Profile");
+        buttonPanel.add(viewProfileButton);
 
-        JButton callDonorsButton = new JButton("Call for Donors");
-        buttonPanel.add(callDonorsButton);
+        JButton viewCalls = new JButton("Look for people in need");
+        buttonPanel.add(viewCalls);
 
         JButton backButton = new JButton("Back");
         buttonPanel.add(backButton);
 
-        frame.add(uploadDataButton);
-        frame.add(callDonorsButton);
+        frame.add(viewProfileButton);
+        frame.add(viewCalls);
         frame.add(backButton);
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        uploadDataButton.addActionListener(e -> {
+        viewProfileButton.addActionListener(e -> {
             // Open DataEntryUI
             SwingUtilities.invokeLater(UserRegistration::new);
             frame.dispose();
         });
 
-        callDonorsButton.addActionListener(e -> {
+        viewCalls.addActionListener(e -> {
             // Add your code for "Call for donors" here
             JOptionPane.showMessageDialog(frame, "Call for donors functionality will be implemented here.");
         });
@@ -54,4 +54,3 @@ public class UserDashboard {
         SwingUtilities.invokeLater(() -> new UserDashboard(8389));
     }
 }
-
