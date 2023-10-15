@@ -1,0 +1,78 @@
+package org.ui;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import org.back.Donor_back;
+
+public class Donor {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(Donor::createAndShowLoginGUI);
+    }
+
+    private static void createAndShowLoginGUI() {
+        JFrame frame = new JFrame("Login Page");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 200);
+        frame.setLayout(new BorderLayout());
+
+        JPanel loginPanel = new JPanel();
+        loginPanel.setLayout(new GridLayout(4, 2));
+
+        JLabel userLabel = new JLabel("Username:");
+        JTextField userField = new JTextField();
+        loginPanel.add(userLabel);
+        loginPanel.add(userField);
+
+        JLabel passwordLabel = new JLabel("Password:");
+        JPasswordField passwordField = new JPasswordField();
+        loginPanel.add(passwordLabel);
+        loginPanel.add(passwordField);
+
+        JButton loginButton = new JButton("Login");
+        loginPanel.add(loginButton);
+
+        JButton newUserButton = new JButton("New User");
+        loginPanel.add(newUserButton);
+
+        frame.add(loginPanel, BorderLayout.CENTER);
+        frame.setLocationRelativeTo(null);
+
+        loginButton.addActionListener(e -> {
+            String username = userField.getText();
+            char[] passwordChars = passwordField.getPassword();
+            String password = new String(passwordChars);
+
+            if (Donor_back.isValidLogin(username, password)) {
+                // Close the login window
+                frame.dispose();
+                // Open the user dashboard
+                // Create and show the user dashboard
+                SwingUtilities.invokeLater(UserDashboard::new);
+            }  else {
+                JOptionPane.showMessageDialog(frame, "Login failed. Please check your credentials.");
+            }
+
+            passwordField.setText(""); // Clear the password field for security
+        });
+
+        newUserButton.addActionListener(e -> {
+            String username = userField.getText();
+            char[] passwordChars = passwordField.getPassword();
+            String password = new String(passwordChars);
+
+            if (Donor_back.registerNewUser(username, password)) {
+                JOptionPane.showMessageDialog(frame, "Registration successful! You can now log in.");
+            } else {
+                JOptionPane.showMessageDialog(frame, "Registration failed. Please choose a different username.");
+            }
+
+            // Clear the fields after registration
+            userField.setText("");
+            passwordField.setText("");
+        });
+
+        frame.setVisible(true);
+    }
+}
