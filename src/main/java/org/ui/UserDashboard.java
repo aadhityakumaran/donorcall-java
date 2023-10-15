@@ -35,7 +35,7 @@ public class UserDashboard {
 
         uploadDataButton.addActionListener(e -> {
             // Open DataEntryUI
-            SwingUtilities.invokeLater(DataEntryUI::new);
+            SwingUtilities.invokeLater(UserRegistration::new);
             frame.dispose();
         });
 

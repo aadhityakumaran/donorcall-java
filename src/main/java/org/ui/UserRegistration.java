@@ -4,13 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import org.back.Donor_back;
 
-public class DataEntryUI {
-    public DataEntryUI() {
+public class UserRegistration {
+    public UserRegistration() {
         createAndShowDataEntryGUI();
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(DataEntryUI::new);
+        SwingUtilities.invokeLater(UserRegistration::new);
     }
 
     public void createAndShowDataEntryGUI() {

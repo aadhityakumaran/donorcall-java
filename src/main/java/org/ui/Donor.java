@@ -57,7 +57,7 @@ public class Donor {
 
         newUserButton.addActionListener(e -> {
             frame.dispose();
-            SwingUtilities.invokeLater(DataEntryUI::new);
+            SwingUtilities.invokeLater(UserRegistration::new);
         });
 
         frame.setVisible(true);
