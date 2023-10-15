@@ -56,19 +56,6 @@ public class Donor {
         });
 
         newUserButton.addActionListener(e -> {
-//            String username = userField.getText();
-//            char[] passwordChars = passwordField.getPassword();
-//            String password = new String(passwordChars);
-//
-//            if (Donor_back.registerNewUser(username, password)) {
-//                JOptionPane.showMessageDialog(frame, "Registration successful! You can now log in.");
-//            } else {
-//                JOptionPane.showMessageDialog(frame, "Registration failed. Please choose a different username.");
-//            }
-//
-//            // Clear the fields after registration
-//            userField.setText("");
-//            passwordField.setText("");
             frame.dispose();
             SwingUtilities.invokeLater(DataEntryUI::new);
         });

@@ -33,36 +33,6 @@ public class Donor_back {
             return false;
         }
     }
-//    public static boolean registerNewUser(String username, String password) {
-//        try {
-//            String jdbcUrl = "jdbc:mysql://localhost:3306/blood";
-//            String dbUsername = "root";
-//            String dbPassword = "tang";
-//
-//            Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
-//            connection.setAutoCommit(false); // Disable auto-commit
-//
-//            String insertQuery = "INSERT INTO users (username, password_hash) VALUES (?, ?)";
-//            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
-//            preparedStatement.setString(1, username);
-//            preparedStatement.setString(2, password);
-//
-//            int rowsInserted = preparedStatement.executeUpdate();
-//
-//            // Commit the transaction
-//            connection.commit();
-//
-//            // Enable auto-commit and close resources
-//            connection.setAutoCommit(true);
-//            preparedStatement.close();
-//            connection.close();
-//
-//            return rowsInserted > 0;
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//            return false;
-//        }
-//    }
 
     public static int insertDataIntoDatabase(String pwd, String name, String mobileNumber, String bloodGroup) {
         try {
