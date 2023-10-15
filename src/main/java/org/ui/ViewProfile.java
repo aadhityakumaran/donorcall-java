@@ -22,18 +22,29 @@ public class ViewProfile {
         panel.setLayout(new GridLayout(0, 2)); // 2 columns for label-value pairs
 
         String[] userData = Donor_back.getUserData(user_id);
+
         if (userData != null) {
             addLabelValuePair(panel, "Name:", userData[0]);
             addLabelValuePair(panel, "Phone:", userData[1]);
             addLabelValuePair(panel, "Blood Type:", userData[2]);
-            addLabelValuePair(panel, "Last Donated on:", userData[3]);
+
+            if (userData[3] == null) userData[3] = "Never";
+            addLabelValuePair(panel, "Last Donated:", userData[3]);
         }
 
-        frame.add(panel);
-        frame.setVisible(true);
+        // Create a new JPanel for the "Back" button and set a FlowLayout
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // Center the button
 
         JButton backButton = new JButton("Back");
-        frame.add(backButton);
+        buttonPanel.add(backButton);
+
+        // Add the label panel to the frame's content pane at the top
+        frame.getContentPane().add(panel, BorderLayout.NORTH);
+        // Add the button panel to the frame's content pane at the bottom
+        frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+
+        frame.setVisible(true);
 
         backButton.addActionListener(e -> {
             frame.dispose();
