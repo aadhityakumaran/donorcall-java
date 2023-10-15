@@ -24,10 +24,16 @@ public class PatientRegistration {
         frame.add(nameLabel);
         frame.add(nameField);
 
-        JLabel pwdLabel = new JLabel("Patient ID:");
-        JTextField pwdField = new JTextField();
-        frame.add(pwdLabel);
-        frame.add(pwdField);
+        JLabel ageLabel = new JLabel("Age:");
+        JTextField ageField = new JTextField();
+        frame.add(ageLabel);
+        frame.add(ageField);
+
+
+        JLabel infoLabel = new JLabel("Info:");
+        JTextField infoField = new JTextField();
+        frame.add(infoLabel);
+        frame.add(infoField);
 
         JLabel phoneLabel = new JLabel("Phone:");
         JTextField phoneField = new JTextField();
@@ -46,12 +52,13 @@ public class PatientRegistration {
         frame.add(backButton);
 
         submitButton.addActionListener(e -> {
-            String pwd = pwdField.getText();
             String name = nameField.getText();
+            int age =Integer.parseInt(ageField.getText());
+            String blood = bloodGroupField.getText();
             String phone = phoneField.getText();
-            String bloodGroup = bloodGroupField.getText();
+            String info = infoField.getText();
 
-            int user_id = Donor_back.registerNewUser(pwd, name, phone, bloodGroup);
+            int user_id = Donor_back.registerNewPatient( name, age, blood, phone, info);
             if (user_id != -1) {
                 JOptionPane.showMessageDialog(frame, "Data has been successfully submitted. Your donor_id is " + user_id);
                 frame.dispose();
@@ -61,7 +68,7 @@ public class PatientRegistration {
                 // Clear the input fields
                 nameField.setText("");
                 phoneField.setText("");
-                pwdField.setText("");
+                infoField.setText("");
                 bloodGroupField.setText("");
             }
         });
