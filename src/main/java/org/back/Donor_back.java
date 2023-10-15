@@ -64,5 +64,29 @@ public class Donor_back {
         }
     }
 
+    public static String[] getUserData(int donorID) {
+        try {
+            String jdbcUrl = "jdbc:mysql://localhost:3306/blood";
+            String dbUsername = "root";
+            String dbPassword = "sqlsme";
+
+            Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
+
+            String query = "SELECT name, phone, blood, last_don FROM users WHERE donor_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, donorID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String name = resultSet.getString("name");
+                String bloodType = resultSet.getString("blood");
+                String phoneNumber = resultSet.getString("phone");
+                String last_don = resultSet.getString("last_don");
+                return new String[]{name, phoneNumber, bloodType, last_don};
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

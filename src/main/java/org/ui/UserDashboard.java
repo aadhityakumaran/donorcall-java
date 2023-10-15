@@ -34,8 +34,8 @@ public class UserDashboard {
         frame.setVisible(true);
 
         viewProfileButton.addActionListener(e -> {
-            // Open DataEntryUI
-            SwingUtilities.invokeLater(UserRegistration::new);
+            // Open ViewProfile
+            SwingUtilities.invokeLater(() -> new ViewProfile(user_id));
             frame.dispose();
         });
 
