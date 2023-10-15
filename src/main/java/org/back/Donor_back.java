@@ -7,7 +7,7 @@ public class Donor_back {
 
     public static boolean isValidLogin(String username, String password) {
         try {
-            String jdbcUrl = "jdbc:mysql://localhost:3306/Blood";
+            String jdbcUrl = "jdbc:mysql://localhost:3306/blood";
             String dbUsername = "root";
             String dbPassword = "tang";
 
@@ -34,7 +34,7 @@ public class Donor_back {
     }
     public static boolean registerNewUser(String username, String password) {
         try {
-            String jdbcUrl = "jdbc:mysql://localhost:3306/Blood";
+            String jdbcUrl = "jdbc:mysql://localhost:3306/blood";
             String dbUsername = "root";
             String dbPassword = "tang";
 
