@@ -67,11 +67,9 @@ public class PatientRegistration {
             String phone = phoneField.getText();
             String info = infoField.getText();
 
-            int user_id = DBConnections.registerNewPatient( name, age, blood, phone, info);
+            int user_id = DBConnections.registerNewPatient(name, age, blood, phone, info);
             if (user_id != -1) {
                 JOptionPane.showMessageDialog(frame, "Data has been successfully submitted.");
-                frame.dispose();
-                SwingUtilities.invokeLater(() -> new UserDashboard(user_id));
             } else {
                 JOptionPane.showMessageDialog(frame, "Failed to submit data. Please try again.");
             }
@@ -83,6 +81,7 @@ public class PatientRegistration {
             infoField.setText("");
             bloodGroupField.setText("");
         });
+
 
         backButton.addActionListener(e -> {
             frame.dispose();
