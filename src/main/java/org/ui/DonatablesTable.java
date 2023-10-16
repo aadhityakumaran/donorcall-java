@@ -19,23 +19,21 @@ public class DonatablesTable {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
 
-        Object[][] data = {
-                {201, "John", 25, "O+ve", "7550016647", "smokes rarely"},
-                {202, "Jane", 30, "AB-ve", "5789029181", "drinks"},
-                {203, "Alice", 28, "O+ve", "8947162789", "no habits"},
-                {204, "Bob", 35, "B+ve", "8291082756", "hammeorage"}
-        };
+        Object[][] data = DBConnections.getDonatables(donor_id);
 
         // Column names
         String[] columnNames = {"Patient ID", "Name", "Age", "Blood Group", "Phone", "Info"};
 
-        JTable table = new JTable(data, columnNames);
+        if (data != null) {
+            JTable table = new JTable(data, columnNames);
+            // Create a scroll pane to hold the table
+            JScrollPane scrollPane = new JScrollPane(table);
 
-        // Create a scroll pane to hold the table
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        // Add the scroll pane to the frame
-        frame.add(scrollPane, BorderLayout.CENTER);
+            // Add the scroll pane to the frame
+            frame.add(scrollPane, BorderLayout.CENTER);
+        } else {
+            frame.add(new Label("No donors in need"));
+        }
 
         frame.setVisible(true);
     }

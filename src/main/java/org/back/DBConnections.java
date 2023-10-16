@@ -107,4 +107,68 @@ public class DBConnections {
             return -1;
         }
     }
+
+    public static String getBloodGroup(int donorID) {
+        try {
+            Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
+
+            String selectQuery = "SELECT blood FROM users WHERE donor_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+            preparedStatement.setInt(1, donorID);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString("blood");
+            }
+            return null;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Object[][] getDonatables(int donorID) {
+        try {
+            Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
+
+            String blood = getBloodGroup(donorID);
+
+            String selectQuery = "SELECT patient_id, name, age, blood, phone, info FROM hospital WHERE blood = ?";
+            PreparedStatement statement = connection.prepareStatement(selectQuery);
+            statement.setString(1, blood);
+
+            ResultSet resultSet = statement.executeQuery();
+            // Get the ResultSet metadata to determine the number of columns
+            int numColumns = resultSet.getMetaData().getColumnCount();
+
+            // Calculate the number of rows in the ResultSet (if needed)
+            int numRows = 0;
+            while (resultSet.next()) {
+                numRows++;
+            }
+            resultSet.beforeFirst(); // Reset the ResultSet cursor
+
+            // Initialize the Object[][] array
+            Object[][] data = new Object[numRows][numColumns];
+
+            // Populate the array with data from the ResultSet
+            int row = 0;
+            while (resultSet.next()) {
+                for (int col = 1; col <= numColumns; col++) {
+                    data[row][col - 1] = resultSet.getObject(col);
+                }
+                row++;
+            }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+
+            return data;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
 }
