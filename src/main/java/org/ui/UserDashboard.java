@@ -42,7 +42,6 @@ public class UserDashboard {
 
         viewCalls.addActionListener(e -> {
             // Add your code for "Call for donors" here
-            JOptionPane.showMessageDialog(frame, "Call for donors functionality will be implemented here.");
             SwingUtilities.invokeLater(() -> new DonatablesTable(user_id));
             frame.dispose();
         });
