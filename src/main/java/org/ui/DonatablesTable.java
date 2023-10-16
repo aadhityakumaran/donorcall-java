@@ -2,6 +2,7 @@ package org.ui;
 
 import javax.swing.*;
 import java.awt.*;
+
 import org.back.DBConnections;
 
 public class DonatablesTable {
@@ -11,10 +12,10 @@ public class DonatablesTable {
     }
 
     public static void main(String[] args) {
-        createAndShowDonatablesUI(8389);
+        SwingUtilities.invokeLater(() -> new DonatablesTable(8389));
     }
 
-    public static void createAndShowDonatablesUI(int donor_id) {
+    public void createAndShowDonatablesUI(int donor_id) {
         JFrame frame = new JFrame("Donatables Table");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
@@ -34,6 +35,17 @@ public class DonatablesTable {
         } else {
             frame.add(new Label("No donors in need"));
         }
+
+        JButton backButton = new JButton("Back");
+
+        // Add an action listener to the button
+        backButton.addActionListener(e -> {
+            frame.dispose();
+            SwingUtilities.invokeLater(() -> new UserDashboard(donor_id));
+        });
+
+        // Add the button to the frame
+        frame.add(backButton, BorderLayout.SOUTH);
 
         frame.setVisible(true);
     }

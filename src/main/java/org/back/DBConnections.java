@@ -1,7 +1,7 @@
 package org.back;
 
 import java.sql.*;
-import java.util.Random;
+import java.util.*;
 
 public class DBConnections {
 
@@ -139,33 +139,23 @@ public class DBConnections {
             statement.setString(1, blood);
 
             ResultSet resultSet = statement.executeQuery();
-            // Get the ResultSet metadata to determine the number of columns
+//            // Get the ResultSet metadata to determine the number of columns
             int numColumns = resultSet.getMetaData().getColumnCount();
 
-            // Calculate the number of rows in the ResultSet (if needed)
-            int numRows = 0;
+            List<Object[]> resultList = new ArrayList<>();
             while (resultSet.next()) {
-                numRows++;
-            }
-            resultSet.beforeFirst(); // Reset the ResultSet cursor
-
-            // Initialize the Object[][] array
-            Object[][] data = new Object[numRows][numColumns];
-
-            // Populate the array with data from the ResultSet
-            int row = 0;
-            while (resultSet.next()) {
+                Object[] row = new Object[numColumns];
                 for (int col = 1; col <= numColumns; col++) {
-                    data[row][col - 1] = resultSet.getObject(col);
+                    row[col - 1] = resultSet.getObject(col);
                 }
-                row++;
+                resultList.add(row);
             }
 
             resultSet.close();
             statement.close();
             connection.close();
 
-            return data;
+            return resultList.toArray(new Object[0][0]);
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
