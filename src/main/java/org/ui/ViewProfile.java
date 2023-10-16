@@ -13,13 +13,15 @@ public class ViewProfile {
         SwingUtilities.invokeLater(() -> new ViewProfile(8389));
     }
 
-    public void createAndShowViewProfile(int user_id){
+    public void createAndShowViewProfile(int user_id) {
         JFrame frame = new JFrame("User Information");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
+        frame.setLocationRelativeTo(null); // Center the frame on the screen
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 2)); // 2 columns for label-value pairs
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding
 
         String[] userData = DBConnections.getUserData(user_id);
 
@@ -39,6 +41,20 @@ public class ViewProfile {
         JButton backButton = new JButton("Back");
         buttonPanel.add(backButton);
 
+        // Set font for labels and buttons
+        Font labelFont = new Font("Arial", Font.BOLD, 16);
+        Font buttonFont = new Font("Arial", Font.PLAIN, 16);
+        for (Component component : panel.getComponents()) {
+            if (component instanceof JLabel) {
+                JLabel label = (JLabel) component;
+                label.setFont(labelFont);
+                label.setHorizontalAlignment(SwingConstants.LEFT); // Set alignment to LEFT
+            } else if (component instanceof JButton) {
+                JButton button = (JButton) component;
+                button.setFont(buttonFont);
+            }
+        }
+
         // Add the label panel to the frame's content pane at the top
         frame.getContentPane().add(panel, BorderLayout.NORTH);
         // Add the button panel to the frame's content pane at the bottom
@@ -50,14 +66,13 @@ public class ViewProfile {
             frame.dispose();
             SwingUtilities.invokeLater(() -> new UserDashboard(user_id));
         });
-
     }
 
     private static void addLabelValuePair(JPanel panel, String label, String value) {
         JLabel labelComponent = new JLabel(label);
         JLabel valueComponent = new JLabel(value);
+        labelComponent.setHorizontalAlignment(SwingConstants.LEFT); // Set alignment to LEFT
         panel.add(labelComponent);
         panel.add(valueComponent);
     }
-
 }
