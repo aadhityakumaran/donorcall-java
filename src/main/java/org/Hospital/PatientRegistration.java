@@ -1,7 +1,8 @@
-package org.ui;
+package org.Hospital;
 
 import javax.swing.*;
 import java.awt.*;
+
 import org.back.DBConnections;
 
 public class PatientRegistration {

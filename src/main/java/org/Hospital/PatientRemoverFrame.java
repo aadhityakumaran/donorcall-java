@@ -1,4 +1,4 @@
-package org.ui;
+package org.Hospital;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

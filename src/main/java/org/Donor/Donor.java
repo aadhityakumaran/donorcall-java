@@ -1,4 +1,4 @@
-package org.ui;
+package org.Donor;
 
 import javax.swing.*;
 import java.awt.*;

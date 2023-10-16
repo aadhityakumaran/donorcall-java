@@ -1,4 +1,4 @@
-package org.ui;
+package org.Donor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,12 +45,10 @@ public class ViewProfile {
         Font labelFont = new Font("Arial", Font.BOLD, 16);
         Font buttonFont = new Font("Arial", Font.PLAIN, 16);
         for (Component component : panel.getComponents()) {
-            if (component instanceof JLabel) {
-                JLabel label = (JLabel) component;
+            if (component instanceof JLabel label) {
                 label.setFont(labelFont);
                 label.setHorizontalAlignment(SwingConstants.LEFT); // Set alignment to LEFT
-            } else if (component instanceof JButton) {
-                JButton button = (JButton) component;
+            } else if (component instanceof JButton button) {
                 button.setFont(buttonFont);
             }
         }
