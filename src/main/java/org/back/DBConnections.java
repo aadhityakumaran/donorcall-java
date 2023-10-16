@@ -161,4 +161,43 @@ public class DBConnections {
             return null;
         }
     }
+
+    public static Object[][] getPatients() {
+        try {
+            Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
+
+            String selectQuery = "SELECT * FROM hospital";
+            PreparedStatement statement = connection.prepareStatement(selectQuery);
+
+            ResultSet resultSet = statement.executeQuery();
+//            // Get the ResultSet metadata to determine the number of columns
+            int numColumns = resultSet.getMetaData().getColumnCount();
+
+            List<Object[]> resultList = new ArrayList<>();
+            while (resultSet.next()) {
+                Object[] row = new Object[numColumns];
+                for (int col = 1; col <= numColumns; col++) {
+                    row[col - 1] = resultSet.getObject(col);
+                }
+                resultList.add(row);
+            }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+
+            return resultList.toArray(new Object[0][0]);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void updateDonorDate(int donor_id) {
+
+    }
+
+    public static void removePatient(int patient_id) {
+
+    }
 }
