@@ -8,11 +8,12 @@ public class UserDashboard {
     public UserDashboard(int user_id) {
         createAndShowUserDashboard(user_id);
     }
+
     public void createAndShowUserDashboard(int user_id) {
         JFrame frame = new JFrame("User Dashboard");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300, 200);
-        frame.setLayout(new GridLayout(2, 1));
+        frame.setLayout(new GridLayout(0, 1)); // Set to a single column
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
