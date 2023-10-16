@@ -194,10 +194,34 @@ public class DBConnections {
     }
 
     public static void updateDonorDate(int donor_id) {
+        try {
+            Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
+            String query = "UPDATE users SET last_don = ? WHERE donor_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
 
+            java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+            preparedStatement.setDate(1, currentDate);
+            preparedStatement.setInt(2, donor_id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void removePatient(int patient_id) {
+        try {
+            Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
+            String insertQuery = "DELETE FROM hospital WHERE patient_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+            preparedStatement.setInt(1, patient_id);
 
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            connection.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }
