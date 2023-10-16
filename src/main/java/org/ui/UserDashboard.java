@@ -20,7 +20,7 @@ public class UserDashboard {
         JButton viewProfileButton = new JButton("View Profile");
         buttonPanel.add(viewProfileButton);
 
-        JButton viewCalls = new JButton("Look for people in need");
+        JButton viewCalls = new JButton("Donation Panel");
         buttonPanel.add(viewCalls);
 
         JButton backButton = new JButton("Back");
