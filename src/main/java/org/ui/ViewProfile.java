@@ -2,7 +2,7 @@ package org.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import org.back.Donor_back;
+import org.back.DBConnections;
 
 public class ViewProfile {
     public ViewProfile(int user_id) {
@@ -21,7 +21,7 @@ public class ViewProfile {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 2)); // 2 columns for label-value pairs
 
-        String[] userData = Donor_back.getUserData(user_id);
+        String[] userData = DBConnections.getUserData(user_id);
 
         if (userData != null) {
             addLabelValuePair(panel, "Name:", userData[0]);

@@ -2,7 +2,7 @@ package org.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import org.back.Donor_back;
+import org.back.DBConnections;
 
 public class Donor {
     public static void main(String[] args) {
@@ -42,7 +42,7 @@ public class Donor {
             char[] passwordChars = passwordField.getPassword();
             String password = new String(passwordChars);
 
-            if (Donor_back.isValidLogin(username, password)) {
+            if (DBConnections.isValidLogin(username, password)) {
                 // Close the login window
                 frame.dispose();
                 // Open the user dashboard

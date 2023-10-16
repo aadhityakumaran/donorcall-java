@@ -2,7 +2,7 @@ package org.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import org.back.Donor_back;
+import org.back.DBConnections;
 
 public class UserRegistration {
     public UserRegistration() {
@@ -51,7 +51,7 @@ public class UserRegistration {
             String phone = phoneField.getText();
             String bloodGroup = bloodGroupField.getText();
 
-            int user_id = Donor_back.registerNewUser(pwd, name, phone, bloodGroup);
+            int user_id = DBConnections.registerNewUser(pwd, name, phone, bloodGroup);
             if (user_id != -1) {
                 JOptionPane.showMessageDialog(frame, "Data has been successfully submitted. Your donor_id is " + user_id);
                 frame.dispose();

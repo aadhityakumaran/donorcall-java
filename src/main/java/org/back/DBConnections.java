@@ -3,7 +3,7 @@ package org.back;
 import java.sql.*;
 import java.util.Random;
 
-public class Donor_back {
+public class DBConnections {
 
     static String jdbcUrl = "jdbc:mysql://localhost:3306/blood";
     static String dbUsername = "root";
