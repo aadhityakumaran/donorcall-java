@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 import org.back.DBConnections;
+
 class PatientRemoverFrame extends JFrame {
 
     private final JTextField donorIDField;
@@ -15,8 +16,8 @@ class PatientRemoverFrame extends JFrame {
         this.table = table;
         setTitle("Patient Remover");
         setSize(400, 200);
+        setLocationRelativeTo(null); // Center the frame on the screen
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new BorderLayout());
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -25,7 +26,7 @@ class PatientRemoverFrame extends JFrame {
         mainPanel.add(wasDonorCheckBox, BorderLayout.NORTH);
 
         // Create a label and text field
-        JLabel donorIDLabel = new JLabel("Donor ID: ");
+        JLabel donorIDLabel = new JLabel("Donor ID:");
         donorIDField = new JTextField(20);
         donorIDField.setEnabled(false);
 
@@ -40,6 +41,7 @@ class PatientRemoverFrame extends JFrame {
 
         // Create a "Remove" button
         JButton removeButton = new JButton("Remove");
+        removeButton.setPreferredSize(new Dimension(100, 30)); // Set button size
 
         // Add action listeners to the checkbox and "Remove" button
         wasDonorCheckBox.addItemListener(e -> {
@@ -48,7 +50,6 @@ class PatientRemoverFrame extends JFrame {
         });
 
         removeButton.addActionListener(e -> {
-            // Add the logic to remove the patient here
             if (wasDonorCheckBox.isSelected()) {
                 DBConnections.updateDonorDate(Integer.parseInt(donorIDField.getText()));
             }
@@ -75,7 +76,7 @@ class PatientRemoverFrame extends JFrame {
     }
 
     private void removeSelectedRowFromTable() {
-            DefaultTableModel model = (DefaultTableModel) table.getModel();
-            model.removeRow(table.getSelectedRow());
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.removeRow(table.getSelectedRow());
     }
 }
