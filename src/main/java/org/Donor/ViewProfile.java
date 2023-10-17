@@ -10,7 +10,7 @@ public class ViewProfile {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new ViewProfile(8389));
+        SwingUtilities.invokeLater(() -> new ViewProfile(5142));
     }
 
     public void createAndShowViewProfile(int user_id) {
@@ -26,6 +26,7 @@ public class ViewProfile {
         String[] userData = DBConnections.getUserData(user_id);
 
         if (userData != null) {
+            addLabelValuePair(panel, "Donor ID:", Integer.toString(user_id));
             addLabelValuePair(panel, "Name:", userData[0]);
             addLabelValuePair(panel, "Phone:", userData[1]);
             addLabelValuePair(panel, "Blood Type:", userData[2]);

@@ -37,7 +37,7 @@ public class Hospital {
 
         viewPatients.addActionListener(e -> {
             // Add your code for "Call for donors" here
-            JOptionPane.showMessageDialog(frame, "Call for donors functionality will be implemented here.");
+            SwingUtilities.invokeLater(PatientsTable::new);
         });
     }
 }
