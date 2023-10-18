@@ -84,7 +84,7 @@ public class DBConnections {
         try {
             Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
             Random rand = new Random();
-            int patient_id = rand.nextInt(10000);
+            int patient_id = rand.nextInt(1000, 10000);
             String insertQuery = "INSERT INTO hospital (patient_id, name, age, blood, phone, info) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
             preparedStatement.setInt(1, patient_id);

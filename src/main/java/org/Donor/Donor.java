@@ -38,18 +38,22 @@ public class Donor {
         frame.setLocationRelativeTo(null);
 
         loginButton.addActionListener(e -> {
-            int username = Integer.parseInt(userField.getText());
-            char[] passwordChars = passwordField.getPassword();
-            String password = new String(passwordChars);
+            try {
+                int username = Integer.parseInt(userField.getText());
+                char[] passwordChars = passwordField.getPassword();
+                String password = new String(passwordChars);
 
-            if (DBConnections.isValidLogin(username, password)) {
-                // Close the login window
-                frame.dispose();
-                // Open the user dashboard
-                // Create and show the user dashboard
-                SwingUtilities.invokeLater(() -> new UserDashboard(username));
-            }  else {
-                JOptionPane.showMessageDialog(frame, "Login failed. Please check your credentials.");
+                if (DBConnections.isValidLogin(username, password)) {
+                    // Close the login window
+                    frame.dispose();
+                    // Open the user dashboard
+                    // Create and show the user dashboard
+                    SwingUtilities.invokeLater(() -> new UserDashboard(username));
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Login failed. Please check your credentials.");
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Donor ID must be a 4-digit number");
             }
 
             passwordField.setText(""); // Clear the password field for security
