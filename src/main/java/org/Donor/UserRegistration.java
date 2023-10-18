@@ -2,6 +2,8 @@ package org.Donor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
+
 import org.back.DBConnections;
 
 public class UserRegistration {
@@ -17,7 +19,7 @@ public class UserRegistration {
         JFrame frame = new JFrame("Registration Form");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
-        frame.setLayout(new GridLayout(5, 2));
+        frame.setLayout(new GridLayout(6, 2));
 
         JLabel nameLabel = new JLabel("Name:");
         JTextField nameField = new JTextField();
@@ -25,9 +27,14 @@ public class UserRegistration {
         frame.add(nameField);
 
         JLabel pwdLabel = new JLabel("Password:");
-        JTextField pwdField = new JTextField();
+        JPasswordField pwdField = new JPasswordField();
         frame.add(pwdLabel);
         frame.add(pwdField);
+
+        JLabel confLabel = new JLabel("Confirm Password:");
+        JPasswordField confField = new JPasswordField();
+        frame.add(confLabel);
+        frame.add(confField);
 
         JLabel phoneLabel = new JLabel("Phone:");
         JTextField phoneField = new JTextField();
@@ -46,23 +53,28 @@ public class UserRegistration {
         frame.add(backButton);
 
         submitButton.addActionListener(e -> {
-            String pwd = pwdField.getText();
+            char[] pwd = pwdField.getPassword();
+            char[] conf = confField.getPassword();
             String name = nameField.getText();
             String phone = phoneField.getText();
             String bloodGroup = bloodGroupField.getText();
 
-            int user_id = DBConnections.registerNewUser(pwd, name, phone, bloodGroup);
-            if (user_id != -1) {
-                JOptionPane.showMessageDialog(frame, "Data has been successfully submitted. Your donor_id is " + user_id);
-                frame.dispose();
-                SwingUtilities.invokeLater(() -> new UserDashboard(user_id));
+            if (Arrays.equals(pwd, conf)) {
+                int user_id = DBConnections.registerNewUser(String.valueOf(pwd), name, phone, bloodGroup);
+                if (user_id != -1) {
+                    JOptionPane.showMessageDialog(frame, "Data has been successfully submitted. Your donor_id is " + user_id);
+                    frame.dispose();
+                    SwingUtilities.invokeLater(() -> new UserDashboard(user_id));
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Failed to submit data. Please try again.");
+                    // Clear the input fields
+                    nameField.setText("");
+                    phoneField.setText("");
+                    pwdField.setText("");
+                    bloodGroupField.setText("");
+                }
             } else {
-                JOptionPane.showMessageDialog(frame, "Failed to submit data. Please try again.");
-                // Clear the input fields
-                nameField.setText("");
-                phoneField.setText("");
-                pwdField.setText("");
-                bloodGroupField.setText("");
+                JOptionPane.showMessageDialog(frame, "Password and confirm password do not match");
             }
         });
 
