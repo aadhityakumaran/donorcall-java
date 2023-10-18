@@ -1,10 +1,10 @@
 package org.Donor;
 
+import org.back.DBConnections;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
-
-import org.back.DBConnections;
 
 public class UserRegistration {
     public UserRegistration() {
@@ -59,7 +59,9 @@ public class UserRegistration {
             String phone = phoneField.getText();
             String bloodGroup = bloodGroupField.getText();
 
-            if (Arrays.equals(pwd, conf)) {
+            if (name.isEmpty() || String.valueOf(pwd).isEmpty() || String.valueOf(conf).isEmpty() || phone.isEmpty() || bloodGroup.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "Please fill in all the required fields.");
+            } else if (Arrays.equals(pwd, conf)) {
                 int user_id = DBConnections.registerNewUser(String.valueOf(pwd), name, phone, bloodGroup);
                 if (user_id != -1) {
                     JOptionPane.showMessageDialog(frame, "Data has been successfully submitted. Your donor_id is " + user_id);
