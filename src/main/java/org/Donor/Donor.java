@@ -43,7 +43,9 @@ public class Donor {
                 char[] passwordChars = passwordField.getPassword();
                 String password = new String(passwordChars);
 
-                if (DBConnections.isValidLogin(username, password)) {
+                if (1000 <= username && username < 10000){
+                    JOptionPane.showMessageDialog(frame, "Donor ID must be a 4-digit number");
+                } else if (DBConnections.isValidLogin(username, password)) {
                     // Close the login window
                     frame.dispose();
                     // Open the user dashboard
