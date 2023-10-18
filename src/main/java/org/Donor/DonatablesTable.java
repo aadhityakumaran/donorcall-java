@@ -28,8 +28,16 @@ public class DonatablesTable {
         String[] columnNames = {"Patient ID", "Name", "Age", "Blood Group", "Phone", "Info"};
 
         if (data != null) {
-            DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+            DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false; // Make all cells non-editable
+                }
+            };
             JTable table = new JTable(tableModel);
+
+            // Disable column reordering
+            table.getTableHeader().setReorderingAllowed(false);
 
             // Center-align the content in cells
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -45,6 +53,13 @@ public class DonatablesTable {
             table.getColumnModel().getColumn(3).setPreferredWidth(60); // Blood Group
             table.getColumnModel().getColumn(4).setPreferredWidth(80); // Phone
             table.getColumnModel().getColumn(5).setPreferredWidth(200); // Info
+
+            // Make table cells uneditable
+            for (int row = 0; row < table.getRowCount(); row++) {
+                for (int column = 0; column < table.getColumnCount(); column++) {
+                    table.isCellEditable(row, column);
+                }
+            }
 
             JScrollPane scrollPane = new JScrollPane(table);
             frame.add(scrollPane, BorderLayout.CENTER);

@@ -18,7 +18,7 @@ public class PatientsTable {
     }
 
     public void createAndShowPatientsUI() {
-        JFrame frame = new JFrame("Donatables Table");
+        JFrame frame = new JFrame("Patients Table");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 400);
 
@@ -37,6 +37,7 @@ public class PatientsTable {
                 }
             };
             table = new JTable(tableModel);
+            table.getTableHeader().setReorderingAllowed(false); // Disable column reordering
 
             // Center-align the content in cells
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -55,7 +56,6 @@ public class PatientsTable {
 
             JScrollPane scrollPane = new JScrollPane(table);
             frame.add(scrollPane, BorderLayout.CENTER);
-
 
         } else {
             table = new JTable(new Object[0][columnNames.length], columnNames);
@@ -114,4 +114,3 @@ public class PatientsTable {
         frame.setLocationRelativeTo(null);
     }
 }
-
