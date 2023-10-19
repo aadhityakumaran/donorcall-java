@@ -53,6 +53,8 @@ public class DBConnections {
             connection.close();
 
             return donor_id;
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            return registerNewUser(pwd, name, mobileNumber, bloodGroup);
         } catch (SQLException ex) {
             ex.printStackTrace();
             return -1;
@@ -102,6 +104,8 @@ public class DBConnections {
             connection.close();
 
             return patient_id;
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            return registerNewPatient(name, age, bloodGroup, mobileNumber, info);
         } catch (SQLException ex) {
             ex.printStackTrace();
             return -1;
