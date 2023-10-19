@@ -21,6 +21,9 @@ public class DonatablesTable {
         JFrame frame = new JFrame("Donatables Table");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 400);
+        ImageIcon icon1 = new ImageIcon("src\\main\\resources\\images\\blood drop.jpg");
+        frame.setIconImage(icon1.getImage());
+
 
         Object[][] data = DBConnections.getDonatables(donor_id);
 

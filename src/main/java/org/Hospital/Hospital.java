@@ -13,6 +13,9 @@ public class Hospital {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300, 200);
         frame.setLayout(new GridLayout(2, 1));
+        ImageIcon icon1 = new ImageIcon("src\\main\\resources\\images\\blood drop.jpg");
+        frame.setIconImage(icon1.getImage());
+
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());

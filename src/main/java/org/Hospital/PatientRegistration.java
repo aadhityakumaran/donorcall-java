@@ -19,6 +19,8 @@ public class PatientRegistration {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 250); // Increased the height for better spacing
         frame.setLayout(new BorderLayout());
+        ImageIcon icon1 = new ImageIcon("src\\main\\resources\\images\\blood drop.jpg");
+        frame.setIconImage(icon1.getImage());
 
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(6, 2));

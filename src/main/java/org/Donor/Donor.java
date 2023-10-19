@@ -36,6 +36,9 @@ public class Donor {
 
         frame.add(loginPanel, BorderLayout.CENTER);
         frame.setLocationRelativeTo(null);
+        ImageIcon icon1 = new ImageIcon("src\\main\\resources\\images\\blood drop.jpg");
+        frame.setIconImage(icon1.getImage());
+
 
         loginButton.addActionListener(e -> {
             try {

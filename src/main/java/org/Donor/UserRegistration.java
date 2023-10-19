@@ -20,6 +20,9 @@ public class UserRegistration {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
         frame.setLayout(new GridLayout(6, 2));
+        ImageIcon icon1 = new ImageIcon("src\\main\\resources\\images\\blood drop.jpg");
+        frame.setIconImage(icon1.getImage());
+
 
         JLabel nameLabel = new JLabel("Name:");
         JTextField nameField = new JTextField();

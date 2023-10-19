@@ -14,6 +14,9 @@ public class UserDashboard {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300, 200);
         frame.setLayout(new GridLayout(0, 1)); // Set to a single column
+        ImageIcon icon1 = new ImageIcon("src\\main\\resources\\images\\blood drop.jpg");
+        frame.setIconImage(icon1.getImage());
+
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());

@@ -18,6 +18,9 @@ public class ViewProfile {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
         frame.setLocationRelativeTo(null); // Center the frame on the screen
+        ImageIcon icon1 = new ImageIcon("src\\main\\resources\\images\\blood drop.jpg");
+        frame.setIconImage(icon1.getImage());
+
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 2)); // 2 columns for label-value pairs
