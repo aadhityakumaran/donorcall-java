@@ -15,7 +15,7 @@ public class DBConnections {
             String selectQuery = "SELECT * FROM users WHERE donor_id = ? AND pwd = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
             preparedStatement.setInt(1, donorID);
-            preparedStatement.setString(2, password);
+            preparedStatement.setBytes(2, Utils.hashed(password));
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -40,7 +40,7 @@ public class DBConnections {
             String insertQuery = "INSERT INTO users (donor_id, pwd, phone, name, blood) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
             preparedStatement.setInt(1, donor_id);
-            preparedStatement.setString(2, pwd);
+            preparedStatement.setBytes(2, Utils.hashed(pwd));
             preparedStatement.setString(3, mobileNumber);
             preparedStatement.setString(4, name);
             preparedStatement.setString(5, bloodGroup);
